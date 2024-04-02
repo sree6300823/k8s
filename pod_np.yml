@@ -1,16 +1,11 @@
-apiVersion: apps/v1
-kind: Deployment
+apiVersion: v1
+kind: pod
 metadata:
-  name: my-deployment-np
+  name: my-pod-np
 spec:
-  replicas: 3
   selector:
     matchLabels:
-      app: my-app-np
-  template:
-    metadata:
-      labels:
-        app: my-app-np
+      app: my-pod-np
     spec:
       containers:
       - name: my-container
@@ -21,9 +16,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: my-app-np
-  labels:
-    app: my-app-np
+  name: nodeport-service
 spec:
   type: NodePort
   ports:
@@ -31,4 +24,4 @@ spec:
     targetPort: 80
     protocol: TCP
   selector:
-    app: my-app-np
+    app: my-pod-np
